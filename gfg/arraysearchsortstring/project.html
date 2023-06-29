@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        button {
+            background-color: #806ae4;
+            border: none;
+            color: white;
+            padding: 15px 15px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+
+        p {
+            color: #27186b;
+        }
+    </style>
+    <script type="text/javascript">
+        function GenerateTable() {
+
+            //Sequential function call on onclick event
+            var customers = new Array();
+            customers.push(["Country", "Totalcases", "New cases", "Deaths"]);
+         //list of data/collection
+            var countryData = [
+                {
+                    "Country": "India",
+                    "TotalCases": "100",
+                    "Newcases": "100",
+                    "Deaths": "100"
+                },
+                {
+                    "Country": "USA",
+                    "TotalCases": "200",
+                    "Newcases": "200",
+                    "Deaths": "200"
+                },
+                {
+                    "Country": "Russia",
+                    "TotalCases": "300",
+                    "Newcases": "300",
+                    "Deaths": "300"
+                }
+            ];
+
+            //Create a HTML Table element.
+            var table = document.createElement("TABLE");
+            table.border = "1";
+
+            //Get the count of columns.
+            var columnCount = customers[0].length;
+            //Add the header row.
+            var row = table.insertRow(-1);
+            for (var i = 0; i < columnCount; i++) {
+                var headerCell = document.createElement("TH");
+                headerCell.innerHTML = customers[0][i];
+                row.appendChild(headerCell);
+            }
+
+            //Add the data rows.
+            var ele = document.querySelector('input[name="country"]:checked');
+            // console.log(ele.value,"ele");
+            if(!ele){
+                alert('Please select any country')
+            }
+            for(let i=0;i <countryData.length ;i++){ //Iteration
+                if(countryData[i].Country == ele.value){ //Selection
+                    row = table.insertRow(-1);
+                    var countrycell = row.insertCell(-1);
+                    console.log(countryData[i].Country)
+                    countrycell.innerHTML = countryData[i].Country;
+
+                    var TotalCasesCell = row.insertCell(-1);
+                    TotalCasesCell.innerHTML = countryData[i].TotalCases;
+
+                    var NewcasesCell = row.insertCell(-1);
+                    NewcasesCell.innerHTML = countryData[i].Newcases;
+
+                    var DeathsCell = row.insertCell(-1);
+                    DeathsCell.innerHTML = countryData[i].Deaths;
+                }
+            }
+            
+            var dvTable = document.getElementById("dvTable");
+            dvTable.innerHTML = "";
+            dvTable.appendChild(table);
+        }
+    </script>
+</head>
+
+<body>
+    <p>
+        Select a country and click on Submit to see the result.
+    </p>
+      
+    Country:
+    <input type="radio" name="country" value="India">India
+    <input type="radio" name="country" value="USA">USA
+    <input type="radio" name="country" value="Russia">Russia
+      
+    <br>
+      
+    <button type="button" onclick="GenerateTable()">  
+        Submit
+    </button>
+      
+    <br>
+    <div id="dvTable"></div>
+</body>
+
+</html>
